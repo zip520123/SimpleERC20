@@ -9,4 +9,10 @@ contract DemoToken is ERC20, ERC20Detailed {
   constructor () public ERC20Detailed("TCI Coin", "TCI", 8) {
     _mint(msg.sender, INITIAL_SUPPLY);
   }
+
+  function printInitialSupply() public returns(uint) {
+    return INITIAL_SUPPLY;
+  }
+
+
 }

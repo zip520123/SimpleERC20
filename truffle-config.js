@@ -18,7 +18,7 @@
  *
  */
 
-const HDWalletProvider = require('truffle-hdwallet-provider');
+const HDWalletProvider = require("truffle-hdwallet-provider");
 
 const fs = require('fs');
 const mnemonic = fs.readFileSync(".secret").toString().trim(); //mnemonic in .secret file
@@ -56,10 +56,24 @@ module.exports = {
       // from: <address>,        // Account to send txs from (default: accounts[0])
       // websockets: true        // Enable EventEmitter interface for web3 (default: false)
     // },
+    test: {
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*"
+    },
+    // npx solidity-coverage
+    // truffle run coverage
+    coverage: {
+      host: "localhost",
+      network_id: "*",
+      port: 8555,         // <-- If you change this, also set the port option in .solcover.js.
+      gas: 0xfffffffffff, // <-- Use this high gas value
+      gasPrice: 0x01      // <-- Use this low gas price
+    },
 
     rinkeby: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, "rinkeby.infura.io/v3/04e204b28cad4f6dbe12322578825a49")
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/04e204b28cad4f6dbe12322578825a49")
       },
       network_id: "*"
     },
@@ -82,7 +96,7 @@ module.exports = {
       // production: true    // Treats this network as if it was a public net. (default: false)
     // }
   },
-
+  plugins: ["solidity-coverage"],
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000
